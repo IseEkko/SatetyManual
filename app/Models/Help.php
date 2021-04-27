@@ -11,6 +11,15 @@ class Help extends Model
     protected $primaryKey = "id";
     protected $guarded = [];
 
+
+    public static function cwp_helpShow($param)
+    {
+        try {
+            $data = self::where('user_id',$param)->select('id','tittle','image_url','explain','pass')->get();
+            return $data;
+        } catch (\Exception $e) {
+            logError('查询失败', [$e->getMessage()]);
+
     /***
      * @param $request
      * @param $url
@@ -34,9 +43,20 @@ class Help extends Model
             return $data;
         }catch (\Exception $err){
             logError('大病求助上传信息失败！', [$err->getMessage()]);
+
             return null;
         }
     }
+
+
+
+    public static function cwp_helpDetail($param)
+    {
+        try {
+            $data = self::where('id',$param)->select('id','name','identity','sex','nation','image_url','address','explain','tittle','number')->get();
+            return $data;
+        } catch (\Exception $e) {
+            logError('失败', [$e->getMessage()]);
 
     /***
      * @param $requset
@@ -55,6 +75,17 @@ class Help extends Model
         }
     }
 
+
+    public static function cwp_helpDelete($param)
+    {
+        try {
+            $data = self::where('id',$param)->delete();
+            return $data;
+        } catch (\Exception $e) {
+            logError('删除失败', [$e->getMessage()]);
+            return null;
+        }
+    }
     /***
      * 大病求助展示全部
      */
