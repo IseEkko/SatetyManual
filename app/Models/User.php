@@ -20,7 +20,7 @@ class User extends Model
         try {
             $goods = User::create([
                 'openid' => $data['openid'],
-                'user_id' => $data['user_id']
+                'name' => $data['name']
             ]);
             return $goods;
         } catch (\Exception $e) {
@@ -28,6 +28,7 @@ class User extends Model
             return null;
         }
     }
+
 
     public static function cwp_search($param)
     {
@@ -39,4 +40,20 @@ class User extends Model
             return null;
         }
     }
+
+    /***
+     * 根据用户openid查询user_id
+     */
+
+public static function selectuserid($openid){
+    try {
+        $goods = User::where('openid',$openid)
+            ->select('user_id')->get();
+        return $goods;
+    } catch (\Exception $e) {
+        logError('查询失败', [$e->getMessage()]);
+        return null;
+    }
+}
+
 }

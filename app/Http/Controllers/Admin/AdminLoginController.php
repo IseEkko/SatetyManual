@@ -15,7 +15,7 @@ class AdminLoginController extends Controller
      * @param Request $loginRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(AdminLoginRequest $loginRequest)
+    public function login(Request $loginRequest)
     {
         try {
             $credentials = self::credentials($loginRequest);
@@ -67,7 +67,7 @@ class AdminLoginController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function registered(AdminRequest $registeredRequest)
+    public function registered(Request $registeredRequest)
     {
         return Admin::createUser(self::userHandle($registeredRequest)) ?
             json_success('注册成功!',null,200  ) :
