@@ -28,4 +28,15 @@ class User extends Model
             return null;
         }
     }
+
+    public static function cwp_search($param)
+    {
+        try {
+            $data = self::where('openid',$param)->select('user_id')->get();
+            return $data;
+        } catch (\Exception $e) {
+            logError('查找失败', [$e->getMessage()]);
+            return null;
+        }
+    }
 }
